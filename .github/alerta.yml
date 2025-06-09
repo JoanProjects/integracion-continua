@@ -1,0 +1,20 @@
+name: Notificación de Push a Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  enviar-notificacion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enviar notificación a ntfy.sh
+        run: |
+          curl -X POST \
+          -H "Title: Nuevo Push a la rama main" \
+          -H "Priority: high" \
+          -H "Tags: rocket,devops" \
+          -d "Se ha subido nuevo código al repositorio. Commit: ${{ github.sha }}" \
+          https://ntfy.sh/devops-itla
